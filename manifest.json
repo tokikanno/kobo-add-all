@@ -1,0 +1,21 @@
+{
+    "name": "Kobo Add All",
+    "version": "0.1",
+    "description": "Helper extesion for massive adding books to cart of kobo.com",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.kobo.com/*/*/ebook*",
+                "https://www.kobo.com/*/*/search*"
+            ],
+            "js": [
+                "vendor/jquery-3.3.1.min.js",
+                "koboAddAll.js"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ],
+    "manifest_version": 2
+}
