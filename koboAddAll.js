@@ -47,7 +47,7 @@ function addSequenceShortCuts(){
     $.each(
         $('span.product-sequence-field'),
         (idx, x) => {
-            $(x).append('<a class="kobo-aa add-btn" href="#">test</a>');
+            $(x).after(`<div class="kobo-aa add-btn" data-href="${$(x).children('a').attr('href')}">將全系列加入購物車</div>`);
         }
     );
 }
