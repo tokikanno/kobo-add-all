@@ -1,8 +1,12 @@
 .kobo-aa.add-btn {
-    background-color: red;
+    background-color: #bf0000;
     width: 150px;
     display: block;
     color: white;
     text-align: center;
     font-size: 14px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);    
+    display: inline-block;
+    cursor: pointer;    
 }
