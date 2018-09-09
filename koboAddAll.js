@@ -119,18 +119,24 @@ function dismissDimmer() {
 function koboAddAllAjax(jq) {
     const p = new Promise((resolve, reject) => {
         const apiUrl = getKoboApiUrl('/shoppingcartwidget/add');
+        const results = [];
 
         let chain = Promise.resolve();
         $.each(
             jq.filter('li'),
             (idx, x) => {
                 const pid = $(x).data('track-info').productId;
-                chain = chain.then(() => {return addToCart(pid, apiUrl);})
+                chain = chain.then(() => {
+                    return addToCart(pid, apiUrl)
+                    .then(resp => {
+                        results.push(resp);
+                    });
+                })
             }
         )
 
         chain.then(() => {
-            resolve();
+            resolve(results);
         })
     });
 
@@ -142,8 +148,9 @@ function processSeqPage(url, finalCB) {
     .done((resp) => {
         const jq = $(resp.Items);
         koboAddAllAjax(jq)
-        .then(() => {
+        .then((results) => {
             console.log('koboAddAllAjax.done');
+            console.log(results);
             if (resp.HasMoreResults) {
                 if (/&pageNumber=(\d+)/.test(url)) {
                     const page = parseInt(/&pageNumber=(\d+)/.exec(url)[1], 10);
@@ -151,6 +158,7 @@ function processSeqPage(url, finalCB) {
                 } else {
                     url += '&pageNumber=2';
                 }
+                appendMessage('正在載入後續書籍資料 ... 請稍候');
                 processSeqPage(url, finalCB);
             } else {
                 finalCB();
