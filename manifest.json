@@ -1,6 +1,6 @@
 {
     "name": "Kobo Add All",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Helper extesion for massive adding books to cart of kobo.com",
     "content_scripts": [
         {
