@@ -119,21 +119,19 @@ function dismissDimmer() {
 function koboAddAllAjax(jq) {
     const p = new Promise((resolve, reject) => {
         const apiUrl = getKoboApiUrl('/shoppingcartwidget/add');
-        const reqList = [];
+
+        let chain = Promise.resolve();
         $.each(
             jq.filter('li'),
             (idx, x) => {
                 const pid = $(x).data('track-info').productId;
-                reqList.push(
-                    addToCart(pid, apiUrl)
-                );
+                chain = chain.then(() => {return addToCart(pid, apiUrl);})
             }
         )
-    
-        Promise.all(reqList)
-        .then((results) => {
-            resolve(results);
-        });
+
+        chain.then(() => {
+            resolve();
+        })
     });
 
     return p;
@@ -169,7 +167,7 @@ addSequenceShortCuts();
 
 // bind event
 $('div.kobo-aa.add-btn').on('click', (e)=>{
-    const initUrl = e.target.dataset.href;
+    const initUrl = e.target.dataset.href + '&sort=TitleAsc';
     addDimmer();
     processSeqPage(initUrl, ()=>{
         appendMessage('完成，請重新整理網頁');
