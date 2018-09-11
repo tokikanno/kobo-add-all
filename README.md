@@ -1,7 +1,7 @@
 # kobo-add-all
 Chrome extension for massive add to cart for kobo.com
 
-# How to develope
+## How to develope
 * Clone this repository
 * Open Chrome borwser
 * In url bar enter: `chrome://extensions`
