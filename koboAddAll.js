@@ -99,7 +99,7 @@ function addSequenceShortCuts() {
     );
   });
 
-  $.each($('span.series'), (idx, x) => {
+  $.each($('li.wishlist-item span.series'), (idx, x) => {
     $(x).after(
       `<div class="kobo-aa add-btn" data-href="${$(x)
         .children('a')
